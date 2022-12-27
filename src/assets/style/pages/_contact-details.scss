@@ -22,7 +22,7 @@
             cursor: pointer;
             margin-inline-start: $layout-margin;
             margin-top: 5px;
-
+            font-size: 1rem;
             &:hover {
                 text-decoration: underline;
             }
@@ -32,9 +32,11 @@
     .contact {
         .contact-avatar {
             width: 35vw;
-            height: 35vw;
+            min-width: 164px;
             max-width: 275px;
+            height: 35vw;
             max-height: 275px;
+            min-height: 164px;
 
             .avatar {
                 width: 100%;
@@ -78,8 +80,6 @@
     }
 
     .details {
-        width: 35vw;
-        max-width: 275px;
         >* {
             text-align: center;
         }
