@@ -1,0 +1,20 @@
+.chart {
+    height: 60vh;
+    padding: 30px $layout-margin 60px;
+    background-color: #00000088;
+
+    .recharts-responsive-container .recharts-wrapper .recharts-surface {
+        padding-inline-end: 20px;
+    }
+
+    .chart-title {
+        font-size: rem(18px);
+        margin-bottom: 10px;
+    }
+
+    .chart-description {
+        font-size: rem(14px);
+        margin-bottom: 10px;
+        color: #aaa;
+    }
+}

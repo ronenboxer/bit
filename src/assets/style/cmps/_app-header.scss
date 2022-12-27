@@ -1,0 +1,35 @@
+.app-header {
+    width: 100%;
+
+    .main-nav {
+        padding-inline: $layout-margin;
+        height: 40px;
+
+        a {
+            color: white;
+            font-size: rem(18px);
+            padding: 5px 10px;
+            height: inherit;
+            width: 100px;
+            text-align: center;
+            
+            &.active {
+                background-color: #15151590;
+                color: $primary-gold;
+            }
+            
+            &:hover {
+                text-decoration: none;
+                color: $primary-gold;
+                background-color: #ffffff50;
+            }
+            
+            svg {
+                max-height: 100%;
+
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}
