@@ -20,7 +20,7 @@ class _ContactPage extends Component {
                 ? [this.props?.user?._id]
                 : null
         }
-        // this.setState({filterBy})
+        this.setState({filterBy})
         this.props.setFilter(filterBy)
     }
 
