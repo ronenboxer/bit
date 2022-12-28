@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/bit/static/css/main.1e1f0bd3.css",
-    "main.js": "/bit/static/js/main.e3e3bf7d.js",
+    "main.css": "/bit/static/css/main.6fcd5b2a.css",
+    "main.js": "/bit/static/js/main.5a844d45.js",
     "static/js/787.28cb0dcd.chunk.js": "/bit/static/js/787.28cb0dcd.chunk.js",
     "static/media/bg5.jpeg": "/bit/static/media/bg5.22ccf382b676a815175e.jpeg",
     "static/media/Dosis-VariableFont_wght.ttf": "/bit/static/media/Dosis-VariableFont_wght.1af19a28a29fcb2321da.ttf",
     "index.html": "/bit/index.html",
-    "main.1e1f0bd3.css.map": "/bit/static/css/main.1e1f0bd3.css.map",
-    "main.e3e3bf7d.js.map": "/bit/static/js/main.e3e3bf7d.js.map",
+    "main.6fcd5b2a.css.map": "/bit/static/css/main.6fcd5b2a.css.map",
+    "main.5a844d45.js.map": "/bit/static/js/main.5a844d45.js.map",
     "787.28cb0dcd.chunk.js.map": "/bit/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e1f0bd3.css",
-    "static/js/main.e3e3bf7d.js"
+    "static/css/main.6fcd5b2a.css",
+    "static/js/main.5a844d45.js"
   ]
 }
