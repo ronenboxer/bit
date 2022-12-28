@@ -20,8 +20,12 @@ class _ContactPage extends Component {
                 ? [this.props?.user?._id]
                 : null
         }
-        this.setState({filterBy})
+        this.setState({ filterBy })
         this.props.setFilter(filterBy)
+    }
+
+    addContact = () => {
+        this.props.history.push('/contact/edit')
     }
 
     render() {
@@ -31,7 +35,7 @@ class _ContactPage extends Component {
         return (
             <section>
 
-                <ContactFilter setFilter={this.setFilter} filterBy={this.props.filterBy} />
+                <ContactFilter setFilter={this.setFilter} filterBy={this.props.filterBy} addContact={this.addContact} />
 
                 <ContactList contacts={this.props.contacts} />
 

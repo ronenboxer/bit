@@ -16,11 +16,17 @@
     }
 
     form {
-        margin-top: 23.9px;
+        margin-top: 28.4px;
         text-align: center;
 
         .avatar {
             @include round(35vw);
+            width: 35vw;
+            min-width: 164px;
+            max-width: 275px;
+            height: 35vw;
+            max-height: 275px;
+            min-height: 164px;
             padding: 3px;
             background-color: rgba($color: #fff, $alpha: .5);
             overflow: hidden;

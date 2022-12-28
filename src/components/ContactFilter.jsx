@@ -1,11 +1,8 @@
-export function ContactFilter({ setFilter, filterBy }) {
+export function ContactFilter({ setFilter, filterBy , addContact}) {
     const handleRef = (elInput) => {
         elInput?.focus()
     }
 
-    const addContact = () => {
-        this.props.history.push('/contact/edit')
-    }
     return (
         <section className="contact-filter flex">
             <input ref={handleRef} onChange={setFilter} value={filterBy.term} type="text" name="txt" id="txt" placeholder="Search" />

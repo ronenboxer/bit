@@ -27,7 +27,7 @@ class _ContactEditPage extends Component {
     editContact = ({ target }) => {
         this.setState(prevState => {
             const initials = target.name === 'name'
-                ? target.value.trim().split(' ').map(word => word.charAt[0]).join('').toUpperCase()
+                ? target.value.trim().split(' ').map(word => word.charAt(0)).join('').toUpperCase()
                 : prevState.contact.initials || prevState.contact.name.trim().split(' ').map(word => word.charAt[0]).join('').toUpperCase()
             return { contact: { ...prevState.contact, [target.name]: target.value, initials } }
         })
@@ -59,7 +59,7 @@ class _ContactEditPage extends Component {
 
     imgInvalid = ev => {
         const element = ev.target
-        element.outerHTML = ` <div className="avatar">${this.state.contact.initials}</div>`
+        element.outerHTML = ` <div class="avatar">${this.state.contact.initials}</div>`
         element.onError = null
     }
 
@@ -67,7 +67,9 @@ class _ContactEditPage extends Component {
         if (!this.props.user) return this.props.history.push('/sign')
         const { contact } = this.state
         if (!contact) return <div>Loading...</div>
-        const url = `https://robohash.org/${contact.name}?set=set5`
+        const url = contact._id
+            ? `https://robohash.org/${contact.name}?set=set5`
+            : ''
 
         return (
             <section className="edit-contact">
@@ -76,7 +78,9 @@ class _ContactEditPage extends Component {
                     {contact._id && <button className="btn flex cetner" onClick={this.removeContact}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21V6H4V4h5V3h6v1h5v2h-1v15Zm2-2h10V6H7Zm2-2h2V8H9Zm4 0h2V8h-2ZM7 6v13Z" /></svg></button>}
                 </div>
                 <form onSubmit={this.saveContact}>
-                    <img className="avatar" src={url} alt={contact.initials} onError={this.imgInvalid} />
+                    {contact._id && contact.name
+                        ? <img className="avatar" src={url} alt={contact.initials} onError={this.imgInvalid} />
+                        : <div className="avatar flex center">{this.state.contact.initials}</div>}
                     <input onChange={this.editContact} type="text" name='name' value={contact.name} className="input block name" placeholder='Contact name' />
                     <input onChange={this.editContact} type="text" name='phone' value={contact.phone} className="input block phone" placeholder='Contact phone' />
                     <input onChange={this.editContact} type="text" name='email' value={contact.email} className="input block email" placeholder='Contact email' />

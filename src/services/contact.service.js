@@ -214,7 +214,9 @@ function getEmptyContact() {
     return {
         name: '',
         email: '',
-        phone: ''
+        phone: '',
+        initials: '',
+        
     }
 }
 
