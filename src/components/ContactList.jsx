@@ -1,6 +1,6 @@
 import { ContactPreview } from "./ContactPreview";
 
-export function ContactList({ contacts, selectContact }) {
+export function ContactList({ contacts }) {
     return (
         <section className="contact-list">
             {contacts.map(contact =>

@@ -1,13 +1,18 @@
+// misc
 import './assets/style/main.scss'
-import './pages/HomePage'
-import { Component } from 'react'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { loadContacts } from './store/actions/contact.action'
-import { login , logout} from './store/actions/user.action'
+
+// Libs
+import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+
+// Modulues
+import { loadContacts , setFilter} from './store/actions/contact.action'
+import { login, logout } from './store/actions/user.action'
 import { loadCharts } from './store/actions/bitcoin.action'
+import { useEffectOnUpdate } from './customHooks/useEffectOnUpdate'
 
-
+// Pages
 import { HomePage } from './pages/HomePage'
 import { ContactPage } from './pages/ContactPage'
 import { ContactDetailsPage } from './pages/ContactDetailsPage'
@@ -18,52 +23,58 @@ import { SignPage } from './pages/SignPage'
 
 
 
-export class _App extends Component {
+export const App = () => {
 
-    componentDidMount() {
-        this.props.loadContacts()
-        this.props.loadCharts()
-        this.props.login()
+
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.userModule.loggedInUser)
+    const filter = useSelector(state => state.contactModule.filterBy)
+
+    const ProtectedRoute = ({ user, children }) => {
+        if (!user) {
+            return <Navigate to="/sign" replace />;
+        }
+
+        return children;
     }
 
-    render() {
-        return (
-            <Router>
+    useEffectOnUpdate(() => {
+        if (user) dispatch(setFilter({ ...filter,excludedIds: [user._id]}))
+    }, [user])
 
-                <section className="main-app">
-                    <AppHeader logout={this.props.logout} user={this.props.user}/>
-                    <main className='container'>
-                        <Switch>
-                            <Route path="/contact/edit/:id?" component={ContactEditPage} />
-                            <Route path="/contact/:id" component={ContactDetailsPage} />
-                            <Route path="/contact" component={ContactPage} />
-                            <Route path="/stats" component={StatisticsPage} />
-                            <Route path="/sign" component={SignPage} />
-                            <Route path="/" component={HomePage} />
-                        </Switch>
-                    </main>
 
-                    <footer>
-                    </footer>
+    useEffect(() => {
+        dispatch(loadContacts())
+        dispatch(loadCharts())
+        dispatch(login())
+    }, [])
 
-                </section>
-            </Router>
-        )
+    const signout = () => {
+        dispatch(logout())
     }
-}
-const mapStateToProps = state => ({
-    contacts: state.contactModule.contacts,
-    filterBy: state.contactModule.filterBy,
-    charts: state.bitcoinModule.charts,
-    chartProps: state.bitcoinModule.chartProps,
-    rate: state.bitcoinModule.rate,
-    user: state.userModule.loggedInUser
-})
 
-const mapDispatchToProps = {
-    loadContacts,
-    loadCharts,
-    login,
-    logout
+    return (
+        <Router>
+
+            <section className="main-app">
+                <AppHeader logout={signout} user={user} />
+                <main className='container'>
+                    <Routes>
+                        <Route path="/contact/edit/:id" element={<ProtectedRoute user={user}><ContactEditPage /></ProtectedRoute>} />
+                        <Route path="/contact/edit/" element={<ProtectedRoute user={user}><ContactEditPage /></ProtectedRoute>} />
+                        <Route path="/contact/:id" element={<ProtectedRoute user={user}><ContactDetailsPage /></ProtectedRoute>} />
+                        <Route path="/contact" element={<ProtectedRoute user={user}><ContactPage /></ProtectedRoute>} />
+                        <Route path="/stats" element={<ProtectedRoute user={user}><StatisticsPage /></ProtectedRoute>} />
+                        <Route path="/sign" element={<SignPage user={user}/>} />
+                        <Route path="/" element={<ProtectedRoute user={user}><HomePage /></ProtectedRoute>} />
+                    </Routes>
+
+                </main>
+
+                <footer>
+                </footer>
+
+            </section>
+        </Router>
+    )
 }
-export const App = connect(mapStateToProps, mapDispatchToProps)(_App)

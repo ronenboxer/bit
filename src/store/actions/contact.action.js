@@ -1,3 +1,4 @@
+import { login } from "./user.action"
 import { contactService } from "../../services/contact.service"
 
 export function loadContacts() {
@@ -34,6 +35,7 @@ export function removeContact(contactId) {
     return async (dispatch) => {
         try {
             await contactService.deleteContact(contactId)
+            login()
             dispatch({ type: 'REMOVE_CONTACT', contactId })
             return 'hello'
         } catch (err) {
@@ -53,4 +55,8 @@ export function setFilter(filterBy) {
             console.log('err:', err)
         }
     }
+}
+
+export function getEmptyContact() {
+    return contactService.getEmptyContact()
 }

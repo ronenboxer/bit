@@ -3,8 +3,11 @@
 
     .main-nav {
         padding-inline: $layout-margin;
-        height: 40px;
+        height: 60px;
 
+        >section{
+            height: 100%;
+        }
         a {
             color: white;
             font-size: rem(18px);
@@ -12,12 +15,16 @@
             height: inherit;
             width: 100px;
             text-align: center;
-            
+
             &.active {
                 background-color: #15151590;
                 color: $primary-gold;
             }
             
+            &.logo{
+                font-size: rem(26px);
+            }
+
             &:hover {
                 text-decoration: none;
                 color: $primary-gold;

@@ -1,42 +1,45 @@
-import { Component } from 'react'
+// Lib
+import { useSelector } from 'react-redux'
+// import { useEffectOnUpdate } from '../customHooks/useEffectOnUpdate'
+// import { useState } from 'react'
+
+// Module
+// import { loadCharts, setProps } from '../store/actions/bitcoin.action'
+
+// Cmps
 import { Chart } from '../components/Chart'
-import { connect } from 'react-redux'
-import { setChartProps, loadCharts } from '../store/actions/bitcoin.action'
+// import { useChartProps } from '../customHooks/useChartProps'
 
-class _StatisticsPage extends Component {
+export const StatisticsPage = () => {
 
-    state = {
-        marketPrice: null,
-        avgBlockSize: null,
-        tradeVolume: null,
-    }
+    const charts = useSelector(state => state.bitcoinModule.charts)
+    // const [register] = useChartProps(useSelector(state => state.bitcoinModule.chartProps), setProps, loadCharts)
 
-    componentDidMount() {
-        this.props.loadCharts()
-    }
+    // useEffectOnUpdate(() => {
+    //     console.log(`charts`, charts)
+    // }, [useSelector(state => state.bitcoinModule.charts)])
 
-    render() {
-        if (!this.props.user) return this.props.history.push('/sign')
-        const { charts} = this.props
-        if (!charts) return <div>Loading...</div>
-        return (
-            <section className='stats-page'>
-                {Object.keys(charts).map(chart => (<Chart chart={charts[chart]} key={chart}/>))}
-            </section>
-        )
-    }
+    
+
+    if (!charts) return <div>Loading...</div>
+    return (
+        <section className='stats-page'>
+            {/* <div className="actions">
+                <div>
+                    <button {...register('span','timespan=1months')}>1 month</button>
+                    <button {...register('span','timespan=3months')}>3 months</button>
+                    <button {...register('span','timespan=6months')}>6 months</button>
+                    <button {...register('span','timespan=1years')}>1 year</button>
+                    <button {...register('span','timespan=3years')}>3 years</button>
+                </div>
+                <div>
+                    <button {...register('avg','rollingAverage=1days')}>1 day</button>
+                    <button {...register('avg','rollingAverage=1weeks')}>1 week</button>
+                    <button {...register('avg','rollingAverage=2weeks')}>2 weeks</button>
+                    <button {...register('avg','rollingAverage=30days')}>30 days</button>
+                </div>
+            </div> */}
+            {Object.keys(charts).map(chart => (<Chart chart={charts[chart]} key={chart} />))}
+        </section>
+    )
 }
-
-const mapStateToProps = state => ({
-    charts: state.bitcoinModule.charts,
-    chartProps: state.bitcoinModule.chartProps,
-    rate: state.bitcoinModule.rate,
-    user: state.userModule.loggedInUser
-})
-
-const mapDispatchToProps = {
-    setChartProps,
-    loadCharts
-}
-
-export const StatisticsPage = connect(mapStateToProps, mapDispatchToProps)(_StatisticsPage)

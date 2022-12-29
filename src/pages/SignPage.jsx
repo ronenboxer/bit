@@ -1,100 +1,72 @@
-import { Component } from 'react'
-import { connect } from 'react-redux'
-import { loadContacts, removeContact, setFilter, saveContact } from '../store/actions/contact.action'
-import { transfer, login, signup } from '../store/actions/user.action'
-import { setChartProps, loadCharts } from '../store/actions/bitcoin.action'
+// Lib
+import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+// Modules
+import { login, signup } from '../store/actions/user.action'
 
+export const SignPage = (appUser) => {
 
-class _SignPage extends Component {
+    const [user, setUser] = useState(appUser)
+    const [isSignup, setIsSignup] = useState(false)
 
-    state = {
-        username: '',
-        name: '',
-        isSignup: false
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (user) return navigate('/')
+    },[user])
+
+    const toggleSignState = value => {
+        setIsSignup(value)
     }
 
-    componentDidMount() {
-    }
-
-    toggleSignState = value => {
-        this.setState({ isSignup: value })
-    }
-
-    updateState = ({ target }) => {
+    const upadteUser = ({ target }) => {
         const { name: key, value } = target
-        this.setState({ [key]: value })
+        setUser(prevUser => ({ ...prevUser, [key]: value }))
     }
 
-    signIn = () => {
-        this.props.login(this.state.name)
-        this.props.history.push('/')
+    const signIn = () => {
+        dispatch(login(user.username))
+        navigate('/')
     }
 
-    signUp = () => {
-        const user = {
-            name: this.state.name,
-            username: this.state.username
-        }
-        this.props.signup(user)
-        this.signIn()
+    const signUp = () => {
+        dispatch(signup(user))
+        signIn()
     }
 
-    render() {
-        if (this.props.user) return this.props.history.push('/')
-        const { isSignup } = this.state
-        return (
-            <section className='sign-page column flex center absolute center'>
-                <div className="action">
-                    <button onClick={() => this.toggleSignState(false)} className={isSignup ? 'btn-sign' : 'btn-sign active'} >Sign in</button>
-                    <button onClick={() => this.toggleSignState(true)} className={isSignup ? 'btn-sign active' : 'btn-sign'}>Sign up</button>
-                </div>
-                {isSignup
-                    ? <form className="credentials" onSubmit={this.signUp}>
-                        <div className="flex between">
-                            <label>Full name</label>
-                            <input onChange={this.updateState} type="text" name="name" />
-                        </div>
-                        <div className="flex between">
-                            <label>Username</label>
-                            <input onChange={this.updateState} type="text" name="username" />
-                        </div>
-                    </form>
-                    : <form className="credentials" onSubmit={this.signIn}>
-                        <div className="flex between">
-                            <label>Full name</label>
-                            <input onChange={this.updateState} type="text" name="name" />
-                        </div>
-                    </form>
-                }
-                {isSignup
-                    ? <button className="btn-submit" onClick={this.signUp}>Sign up</button>
-                    : <button className="btn-submit" onClick={this.signIn}>Sign in</button>}
 
-            </section>
-        )
-    }
+    return (
+        <section className='sign-page column flex center absolute center'>
+            <div className="action">
+                <button onClick={() => toggleSignState(false)} className={isSignup ? 'btn-sign' : 'btn-sign active'} >Sign in</button>
+                <button onClick={() => toggleSignState(true)} className={isSignup ? 'btn-sign active' : 'btn-sign'}>Sign up</button>
+            </div>
+            {isSignup
+                ? <form className="credentials" onSubmit={signUp}>
+                    <div className="flex between">
+                        <label>Full name</label>
+                        <input onChange={upadteUser} type="text" name="name" />
+                    </div>
+                    <div className="flex between">
+                        <label>Username</label>
+                        <input onChange={upadteUser} type="text" name="username" />
+                    </div>
+                </form>
+                : <form className="credentials" onSubmit={signIn}>
+                    <div className="flex between">
+                        <label>Full name</label>
+                        <input onChange={upadteUser} type="text" name="username" />
+                    </div>
+                </form>
+            }
+            {isSignup
+                ? <button className="btn-submit" onClick={signUp}>Sign up</button>
+                : <button className="btn-submit" onClick={signIn}>Sign in</button>}
+
+        </section>
+    )
 }
 
-const mapStateToProps = state => ({
-    contacts: state.contactModule.contacts,
-    filterBy: state.contactModule.filterBy,
-    charts: state.bitcoinModule.charts,
-    chartProps: state.bitcoinModule.chartProps,
-    rate: state.bitcoinModule.rate,
-    user: state.userModule.loggedInUser
-})
-
-const mapDispatchToProps = {
-    loadContacts,
-    removeContact,
-    saveContact,
-    setFilter,
-    transfer,
-    login,
-    signup,
-    setChartProps,
-    loadCharts
-}
-
-export const SignPage = connect(mapStateToProps, mapDispatchToProps)(_SignPage)

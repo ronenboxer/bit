@@ -8,11 +8,18 @@ export function loadCharts() {
             const charts = await bitcoinService.getCharts(props)
             const rate = await bitcoinService.getRate()
             dispatch({ type: 'SET_CHARTS', charts })
-            dispatch({type: 'SET_RATE', rate})
+            dispatch({ type: 'SET_RATE', rate })
             return 'hello'
         } catch (err) {
             console.log('err:', err)
         }
+    }
+}
+export function setProps(field) {
+
+    return (dispatch, getState) => {
+        const props = { ...getState().bitcoinModule.chartProps, ...field }
+        dispatch({ type: 'SET_PROPS', chartProps: props })
     }
 }
 

@@ -3,7 +3,7 @@
 
     >h1 {
         padding-inline: $layout-margin;
-        font-size: 1.66rem;
+        font-size: 1.75rem;
         margin-bottom: 10px;
 
         svg {
@@ -34,7 +34,7 @@
         }
 
         .amount {
-            font-size: 1.25rem;
+            font-size: 1.45rem;
             .btc {
                 color: $bit-green;
                 margin-inline-end: 5px;
@@ -56,7 +56,7 @@
 
         .date {
             color: #8799b9;
-            font-size: .8rem;
+            font-size: 1rem;
         }
     }
 }

@@ -15,7 +15,8 @@ export function ContactPreview({ contact }) {
             <img className="contact-avatar" src={url} alt={initials} onError={imgInvalid} />
             <div className="mini-details">
                 <h3 className="contact-name">{contact.name}</h3>
-                <small>{contact.phone}</small>
+                <p className="phone">{contact.phone}</p>
+                <p className="email">{contact.email}</p>
             </div>
         </Link>
     )

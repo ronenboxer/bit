@@ -1,59 +1,35 @@
-// import { contactService } from '../services/contact.service'
-// import { userService } from '../services/user.service'
+// Lib
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { connect } from 'react-redux'
-import { loadContacts, removeContact, setFilter } from '../store/actions/contact.action'
-import { Component } from 'react'
+// Modules
+import { setFilter } from '../store/actions/contact.action'
+
+// Cmps
 import { ContactList } from '../components/ContactList'
 import { ContactFilter } from '../components/ContactFilter'
 
-class _ContactPage extends Component {
+export const ContactPage = () => {
 
-    componentDidMount() {
-        this.props.loadContacts()
+    const filterBy = useSelector(state => state.contactModule.filterBy)
+    const contacts = useSelector(state => state.contactModule.contacts)
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const onSetFilter = filterBy => {
+        dispatch(setFilter(filterBy))
     }
 
-    setFilter = event => {
-        const filterBy = {
-            term: event?.target?.value || '',
-            excludedIds: this.props?.user?._id
-                ? [this.props?.user?._id]
-                : null
-        }
-        this.setState({ filterBy })
-        this.props.setFilter(filterBy)
+    const addContact = () => {
+        navigate('/contact/edit')
     }
 
-    addContact = () => {
-        this.props.history.push('/contact/edit')
-    }
-
-    render() {
-        if (!this.props.user) return this.props.history.push('/sign')
-        const { contacts } = this.props
-        if (!contacts) return <div>Loading...</div>
-        return (
-            <section>
-
-                <ContactFilter setFilter={this.setFilter} filterBy={this.props.filterBy} addContact={this.addContact} />
-
-                <ContactList contacts={this.props.contacts} />
-
-            </section>
-        )
-    }
+    if (!contacts) return <div>Loading...</div>
+    return (
+        <section>
+            <ContactFilter setFilter={onSetFilter} filterBy={filterBy} addContact={addContact} />
+            <ContactList contacts={contacts} />
+        </section>
+    )
 }
-
-const mapStateToProps = state => ({
-    contacts: state.contactModule.contacts,
-    filterBy: state.contactModule.filterBy,
-    user: state.userModule.loggedInUser
-})
-
-const mapDispatchToProps = {
-    loadContacts,
-    removeContact,
-    setFilter,
-}
-
-export const ContactPage = connect(mapStateToProps, mapDispatchToProps)(_ContactPage)

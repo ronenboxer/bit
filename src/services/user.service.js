@@ -3,6 +3,7 @@ let gUsers
 getUsers()
 async function getUsers() {
     gUsers = JSON.parse(localStorage.getItem('userDB') || null) || await contactService.getContacts()
+    localStorage.setItem('userDB', JSON.stringify(gUsers))
 }
 
 export const userService = {
@@ -60,6 +61,19 @@ async function save(user) {
     }
     localStorage.setItem('userDB', JSON.stringify(gUsers))
     return userToSave
+}
+
+export function contactRemoved(contactId) {
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || null)
+    if (gUsers) {
+        gUsers.forEach((user, idx) => {
+            const transfers = user.transfers?.filter(transfer => !(transfer.from === contactId || transfer.to === contactId)) || []
+            user.transfers = transfers
+            if (loggedInUser?._id === user._id) sessionStorage.setItem('loggedInUser', JSON.stringify(user))
+        })
+        localStorage.setItem('userDB', JSON.stringify(gUsers))
+
+    }
 }
 
 function makeId(length = 10) {
