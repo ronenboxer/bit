@@ -16,9 +16,7 @@ export const ContactEditPage = () => {
     const contacts = useSelector(state => state.contactModule.contacts)
     const user = useSelector(state => state.userModule.loggedInUser)
 
-
     useEffect(() => {
-        if (!user) navigate('/sign')
         loadContact(params.id || null)
     }, [params.id,user])
 

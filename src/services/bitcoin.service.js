@@ -53,8 +53,8 @@ async function _getTradeVolume(span='timespan=6months', avg='rollingAverage=1day
          return {
              title: `Exchange Trade Volume (USD)`,
              description: `The total USD value of trading volume on major bitcoin exchanges.`,
-             posColor: '#00ffaa',
-             stroke: '#008e5f',
+             posColor: '#11ffbb',
+             stroke: '#118e7f',
              negColor: 'red',
              data: res.data.values.map(val => ({
                  name: (new Date(val.x * 1000)).toLocaleDateString(),
@@ -72,7 +72,7 @@ async function _getAvgBlockSize(span='timespan=6months', avg='rollingAverage=1da
          return {
              title: `Average Block Size (MB)`,
              description: `The average block size over the past 24 hours in megabytes.`,
-             posColor: '#6f00ff',
+             posColor: '#5f00ff',
              stroke: '#36007e',
              negColor: 'red',
              data: res.data.values.map(val => ({

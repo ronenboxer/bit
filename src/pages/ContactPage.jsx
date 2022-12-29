@@ -1,7 +1,6 @@
 // Lib
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
 
 // Modules
 import { setFilter } from '../store/actions/contact.action'
@@ -14,14 +13,9 @@ export const ContactPage = () => {
 
     const filterBy = useSelector(state => state.contactModule.filterBy)
     const contacts = useSelector(state => state.contactModule.contacts)
-    const user = useSelector(state => state.userModule.loggedInUser)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!user) navigate('/sign')
-    }, [user])
 
     const onSetFilter = filterBy => {
         dispatch(setFilter(filterBy))

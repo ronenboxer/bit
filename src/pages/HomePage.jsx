@@ -1,7 +1,5 @@
 // Lib
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { Chart } from '../components/Chart'
 
 // Cmps
@@ -13,11 +11,6 @@ export const HomePage = () => {
     const contacts = useSelector(state => state.contactModule.contacts)
     const rate = useSelector(state => state.bitcoinModule.rate)
     const charts = useSelector(state => state.bitcoinModule.charts)
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!user) navigate('/sign')
-    }, [user])
 
     if (!rate || !charts) return <div>Loading...</div>
     const usd = (user.balance * rate).toLocaleString()

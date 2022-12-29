@@ -26,13 +26,12 @@ export const App = () => {
 
 
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
     const user = useSelector(state => state.userModule.loggedInUser)
     const filter = useSelector(state => state.contactModule.filterBy)
 
     const ProtectedRoute = ({ user, children }) => {
         if (!user) {
-            // return <Navigate to="/sign" replace />;
+            return <Navigate to="/sign" replace />;
         }
 
         return children;

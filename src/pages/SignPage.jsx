@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // Modules
 import { login, signup } from '../store/actions/user.action'
 
-export const SignPage = (appUser) => {
+export const SignPage = () => {
 
     const [user, setUser] = useState(useSelector(state => state.userModule.loggedInUser))
     const [isSignup, setIsSignup] = useState(false)

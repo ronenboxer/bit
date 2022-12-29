@@ -5,7 +5,7 @@ export function Chart({ chart }) {
     const { data, title, posColor, stroke, negColor, description, unit = 'USD' , type} = chart
     return (
         <section className="chart">
-            <h1 className="chart-title">{title}</h1>
+            <h1 className="chart-title" style={{color:posColor}}>{title}</h1>
             <p className="chart-description">{description}</p>
             <ResponsiveContainer width="100%" height="90%">
                 <AreaChart data={data} margin={{ left: 50 }}>

@@ -17,13 +17,10 @@ export const ContactDetailsPage = () => {
     const contacts = useSelector(state => state.contactModule.contacts)
     const rate = useSelector(state => state.bitcoinModule.rate)
     const params = useParams()
-    const [id, setId] = useState(params.id)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!user) navigate('/sign')
-        setId(params.id)
         loadContact()
     }, [params.id, user])
 
