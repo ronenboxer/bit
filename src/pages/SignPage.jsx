@@ -16,7 +16,7 @@ export const SignPage = (appUser) => {
 
     useEffect(() => {
         if (user) return navigate('/')
-    },[user])
+    },[])
 
     const toggleSignState = value => {
         setIsSignup(value)
