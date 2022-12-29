@@ -14,11 +14,13 @@ export const ContactEditPage = () => {
 
     const [contact, register, setContact, onSaveContact, onRemoveContact] = useForm(getEmptyContact(), saveContact, removeContact)
     const contacts = useSelector(state => state.contactModule.contacts)
+    const user = useSelector(state => state.userModule.loggedInUser)
 
 
     useEffect(() => {
+        if (!user) navigate('/sign')
         loadContact(params.id || null)
-    }, [params.id])
+    }, [params.id,user])
 
     const loadContact = id => {
         if (id) {

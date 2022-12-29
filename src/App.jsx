@@ -11,7 +11,6 @@ import { loadContacts , setFilter} from './store/actions/contact.action'
 import { login, logout } from './store/actions/user.action'
 import { loadCharts } from './store/actions/bitcoin.action'
 import { useEffectOnUpdate } from './customHooks/useEffectOnUpdate'
-
 // Pages
 import { HomePage } from './pages/HomePage'
 import { ContactPage } from './pages/ContactPage'
@@ -27,12 +26,13 @@ export const App = () => {
 
 
     const dispatch = useDispatch()
+    // const navigate = useNavigate()
     const user = useSelector(state => state.userModule.loggedInUser)
     const filter = useSelector(state => state.contactModule.filterBy)
 
     const ProtectedRoute = ({ user, children }) => {
         if (!user) {
-            return <Navigate to="/sign" replace />;
+            // return <Navigate to="/sign" replace />;
         }
 
         return children;

@@ -1,5 +1,7 @@
 // Lib
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 // import { useEffectOnUpdate } from '../customHooks/useEffectOnUpdate'
 // import { useState } from 'react'
 
@@ -13,13 +15,20 @@ import { Chart } from '../components/Chart'
 export const StatisticsPage = () => {
 
     const charts = useSelector(state => state.bitcoinModule.charts)
+    const navigate = useNavigate()
+    const user = useSelector(state => state.userModule.loggedInUser)
+
+    useEffect(() => {
+        if (!user) navigate('/sign')
+    }, [user])
+
     // const [register] = useChartProps(useSelector(state => state.bitcoinModule.chartProps), setProps, loadCharts)
 
     // useEffectOnUpdate(() => {
     //     console.log(`charts`, charts)
     // }, [useSelector(state => state.bitcoinModule.charts)])
 
-    
+
 
     if (!charts) return <div>Loading...</div>
     return (

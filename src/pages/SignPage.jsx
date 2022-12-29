@@ -8,7 +8,7 @@ import { login, signup } from '../store/actions/user.action'
 
 export const SignPage = (appUser) => {
 
-    const [user, setUser] = useState(appUser)
+    const [user, setUser] = useState(useSelector(state => state.userModule.loggedInUser))
     const [isSignup, setIsSignup] = useState(false)
 
     const dispatch = useDispatch()
@@ -16,7 +16,7 @@ export const SignPage = (appUser) => {
 
     useEffect(() => {
         if (user) return navigate('/')
-    },[])
+    }, [])
 
     const toggleSignState = value => {
         setIsSignup(value)

@@ -22,9 +22,10 @@ export const ContactDetailsPage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        if (!user) navigate('/sign')
         setId(params.id)
         loadContact()
-    }, [params.id])
+    }, [params.id, user])
 
     const loadContact = async () => {
         const contact = contacts?.find(anyContact => anyContact._id === params.id)
