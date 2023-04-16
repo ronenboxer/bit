@@ -1,5 +1,5 @@
-# KESSEF
-A bitcoin transfer app developed using Angular. [Check it out!](https://ronenboxer.github.io/kessef/) (Use 'doda' as username to enjoy lots of money).
+# BIT
+A bitcoin transfer app developed using Angular. [Check it out!](https://ronenboxer.github.io/bit/) (Use 'doda' as username to enjoy lots of money).
 
 ![kessef](https://user-images.githubusercontent.com/114055513/231578832-28ee5b22-e08d-4bed-9339-c8a1c1efb5b5.gif)
 
